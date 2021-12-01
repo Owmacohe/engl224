@@ -8,40 +8,65 @@
   </head>
 
   <body>
-    <div class="flexcolumn" id="target">
+    <div class="flexcolumn" id="col">
       <h1>Weekly Schedule Builder</h1>
       <p><a href="index.html">Main menu</a></p>
 
-      <h1>Under construction!</h1>
+      <div class="flexrow" style="flex-wrap: wrap;" id="row"></div>
     </div>
   </body>
 
   <script type="text/javascript">
     var days = ["Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
-    var activities = [ [], [], [], [], [], [], [] ];
+    var activities = [
+      "Class Record Form",
+      "Manifesto",
+      "1 hour draft work",
+      "2 hours draft work",
+      "3 hours draft work",
+      "Process Record Form",
+      "Summary of Process Record Form",
+      "Eight Key Factors",
+      "Critique"
+    ];
 
     loadSchedule();
 
     function loadSchedule() {
-      for (var i = 0; i < days.length; i++) {
+      for (var i = 0; i < activities.length; i++) {
+        var newSchedule = document.createElement("DIV");
+        newSchedule.className = "schedule";
+        newSchedule.draggable = "true";
+        newSchedule.setAttribute("ondragstart", "drag(event)");
+        newSchedule.innerHTML = activities[i];
+        document.getElementById("row").appendChild(newSchedule);
+      }
+
+      for (var j = 0; j < days.length; j++) {
         var newDiv = document.createElement("DIV");
         newDiv.className = "small_flexcolumn";
-        document.getElementById("target").appendChild(newDiv);
+        newSchedule.setAttribute("ondrop", "drop(event)");
+        newSchedule.setAttribute("ondragover", "allowDrop(event)");
+        document.getElementById("col").appendChild(newDiv);
 
         var newTitle = document.createElement("H2");
-        newTitle.innerHTML = days[i];
+        newTitle.innerHTML = days[j];
         newDiv.appendChild(newTitle);
-
-        var newList = document.createElement("UL");
-        newDiv.appendChild(newList);
-
-        for (var j = 0; j < activities[i].length; j++) {
-          var newItem = document.createElement("LI");
-          newItem.innerHTML = activities[i][j];
-          newList.appendChild(newItem);
-        }
       }
     }
 
+    function allowDrop(ev) {
+      ev.preventDefault();
+    }
+
+    function drag(ev) {
+      ev.dataTransfer.setData("text", ev.target.id);
+    }
+
+    function drop(ev) {
+      ev.preventDefault();
+      var data = ev.dataTransfer.getData("text");
+      ev.target.appendChild(document.getElementById(data));
+    }
   </script>
 </html>

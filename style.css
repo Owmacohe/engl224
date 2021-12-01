@@ -31,12 +31,12 @@ a:hover {
   color: var(--hover);
 }
 
-.flexcolumn, .flexrow, .small_flexcolumn, .small_flexrow {
+.flexcolumn, .flexrow, .small_flexcolumn, .small_flexrow, .schedule {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.flexcolumn, .small_flexcolumn { flex-direction: column; }
+.flexcolumn, .small_flexcolumn, .schedule { flex-direction: column; }
 .flexrow, .small_flexrow { flex-direction: row; }
 .small_flexcolumn, .small_flexrow {
   margin: 1vw;
@@ -44,6 +44,27 @@ a:hover {
   padding: 1vw;
 
   background: var(--box);
+}
+
+.schedule {
+  user-select: none;
+
+  padding: 1vw;
+  margin: 1vw;
+
+  color: var(--box);
+  font-size: 2vw;
+
+  background: var(--emphasis);
+
+  transition: 0.3s;
+}
+.schedule:hover {
+  cursor: grab;
+
+  box-shadow: 0.5vw 0.5vw 1vw var(--hover);
+
+  transition: 0.3s;
 }
 
 #bigText {
